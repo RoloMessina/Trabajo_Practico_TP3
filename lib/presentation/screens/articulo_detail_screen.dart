@@ -5,13 +5,14 @@ import 'package:e_commerce_jktecno/entities/articulo.dart';
 class ArticuloDetailScreen extends StatelessWidget {
   const ArticuloDetailScreen({super.key, required this.articuloId});
 
-  static const String name = 'articulo_details_screen';
+  static const String name = 'articulo_detail_screen';
   final String articuloId;
 
   @override
   Widget build(BuildContext context) {
     final articulo = articuloList.firstWhere(
       (articulo) => articulo.id == articuloId,
+      orElse: () => throw Exception('Artículo no encontrado'),
     );
 
     return Scaffold(
@@ -32,12 +33,16 @@ class _ArticuloDetailView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (articulo.imagen != null)
+          if (articulo.imagen != null && articulo.imagen!.isNotEmpty)
             Image.network(
               articulo.imagen!,
               height: 300,
               width: double.infinity,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => const Icon(
+                Icons.broken_image,
+                size: 300,
+              ),
             ),
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -52,9 +57,9 @@ class _ArticuloDetailView extends StatelessWidget {
                 Text(
                   '\$${articulo.precio.toStringAsFixed(2)}',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -86,8 +91,8 @@ class _ArticuloDetailView extends StatelessWidget {
                 Text(
                   'Stock disponible: ${articulo.stock}',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: articulo.stock > 0 ? Colors.green : Colors.red,
-                  ),
+                        color: articulo.stock > 0 ? Colors.green : Colors.red,
+                      ),
                 ),
               ],
             ),

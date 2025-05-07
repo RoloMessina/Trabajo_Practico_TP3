@@ -15,20 +15,22 @@ class ArticulosScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Catálogo de Celulares')),
-      body: const _ArticulosView(),
+      body: _ArticulosView(articulos: articulos),
     );
   }
 }
 
 class _ArticulosView extends StatelessWidget {
-  const _ArticulosView({super.key});
+  final List<Articulo> articulos;
+
+  const _ArticulosView({super.key, required this.articulos});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: articuloList.length,
+      itemCount: articulos.length,
       itemBuilder: (context, index) {
-        final articulo = articuloList[index];
+        final articulo = articulos[index];
         return ArticuloItem(
           articulo: articulo,
           onTap: () => _goToArticuloDetails(context, articulo),

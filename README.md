@@ -1,3 +1,3 @@
-# movie_app
+# E_commerce_app
 
 A new Flutter project.

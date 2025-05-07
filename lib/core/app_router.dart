@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart'; // Import necesario
 import 'package:go_router/go_router.dart';
 import 'package:e_commerce_jktecno/presentation/screens/articulo_detail_screen.dart';
 import 'package:e_commerce_jktecno/presentation/screens/articulos_screen.dart';
@@ -20,5 +21,8 @@ final appRouter = GoRouter(
       },
     ),
   ],
+  errorBuilder: (context, state) => Scaffold(
+    appBar: AppBar(title: const Text('Error')),
+    body: const Center(child: Text('Página no encontrada')),
+  ),
 );
-
